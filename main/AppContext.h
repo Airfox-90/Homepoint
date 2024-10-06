@@ -45,6 +45,7 @@ namespace ctx
       std::shared_ptr<ntp::NTPSync> mNTPSync;
       std::unique_ptr<wifi::CaptiveServer> mpCaptiveServer;
       std::unique_ptr<web::WebServer> mpWebServer;
+      std::unique_ptr<bme280::BME280Connection> mpBME280Sensor;
       WifiContext mWifiContext;
       rapidjson::Document mConfigDocument;
       model::Model mModel;

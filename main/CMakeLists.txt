@@ -1,4 +1,7 @@
 
+file(GLOB BME280_SRC
+    "libraries/BME280/*.cpp"
+)
 file(GLOB TFTESPI_SRC
     "libraries/TFT_eSPI/*.cpp"
 )
@@ -21,6 +24,10 @@ file(GLOB FS_SRC
 set(MQTT_SRC_PATH "mqtt")
 file(GLOB MQTT_SRC
   "${MQTT_SRC_PATH}/MQTTConnection.cpp"
+)
+set(BME280_SRC_PATH "bme280")
+file(GLOB BME280_SRC
+  "${BME280_SRC_PATH}/BME280Connection.cpp"
 )
 
 set(NTP_SRC_PATH "ntp")
@@ -77,6 +84,7 @@ set(GLOBALINCLUDES
 
 set(LIBRARY_SRC
     ${JPEGDEC_SRC}
+    ${BME280_SRC}
 )
 
 set(PLATFORM_SRC
@@ -90,6 +98,7 @@ set(COMPONENT_SRCS
     ${FS_SRC}
     ${UI_SRC}
     ${MQTT_SRC}
+    ${BME280_SRC}
     ${NTP_SRC}
     ${TOUCH_SRC}
     ${WEB_SRC}
@@ -109,6 +118,7 @@ set_property(SOURCE ${LIBRARY_SRC} PROPERTY COMPILE_FLAGS "-Wno-all -Wno-shift-n
       ${UIINCLUDES}
       "libraries/JPEGDecoder/src"
       "libraries/rapidjson/include/"
+      "libraries/BME280/src/"
   )
 
 if(BOARD STREQUAL "M5STACKCORE2")

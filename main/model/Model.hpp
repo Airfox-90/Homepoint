@@ -4,6 +4,7 @@
 #include <mqtt/MQTTConnection.h>
 #include <mqtt/MQTTGroup.hpp>
 #include <mqtt/MQTTSensorGroup.hpp>
+#include <bme280/BME280Connection.h>
 
 #include <map>
 #include <string>
@@ -29,6 +30,7 @@ struct Model
   std::string mTimeZone;
   mqtt::MQTTConfig mMQTTServerConfig;
   std::vector<MQTTVariants> mMQTTGroups;
+  bme280::BME280Config mBME280Config;
 
   bool hasWifiCredentials()
   {

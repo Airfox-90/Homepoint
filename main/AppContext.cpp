@@ -33,6 +33,8 @@ namespace ctx
       }
     });
     mpWebServer = std::make_unique<web::WebServer>(shared_from_this(), mModel.mWebCredentials);
+    mpBME280Sensor = std::make_unique<bme280::BME280Connection>(mModel.mBME280Config);
+    mpBME280Sensor->setup();
   }
 
   void AppContext::reload()

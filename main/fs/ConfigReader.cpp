@@ -34,6 +34,7 @@ namespace fs
       model.mWebCredentials = ConfigReader::getWebCredentials(rootObj);
       model.mTimeZone = getTimeZone(rootObj);
       model.mMQTTServerConfig = getMQTTConfig(rootObj);
+      model.mBME280Config = getBME280Config(rootObj);
       model.mMQTTGroups = getMQTTGroups(rootObj);
       model.mHardwareConfig = getHardwareConfig(rootObj);
       return model;
@@ -153,6 +154,27 @@ namespace fs
       read(document, "mqttbroker", [&ipAddr] (std::string ip) { ipAddr = ip; });
       conf.credentials = std::make_tuple(mqttuser, mqttpass);
       conf.addr = ipAddr;
+      return conf;
+    }
+    
+    const bme280::BME280Config ConfigReader::getBME280Config(const rapidjson::Value::ConstObject document)
+    {
+      bme280::BME280Config conf;
+      using namespace bme280;
+      if (!document.HasMember("bme280"))
+      {
+        return {};
+      }
+      read(document, "sdaPin", [&](int sda_pin)
+          {
+            conf.sda_pin = sda_pin;
+          }
+        );
+      read(document, "sclPin", [&](int scl_pin)
+        {
+          conf.scl_pin = scl_pin;
+        }
+      );
       return conf;
     }
 
