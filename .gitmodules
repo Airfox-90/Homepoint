@@ -19,3 +19,6 @@
 [submodule "main/libraries/TFT_eSPI"]
 	path = main/libraries/TFT_eSPI
 	url = https://github.com/Bodmer/TFT_eSPI.git
+[submodule "main/libraries/BME280"]
+	path = main/libraries/BME280
+	url = https://github.com/malokhvii-eduard/arduino-bme280.git
