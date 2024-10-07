@@ -17,6 +17,12 @@ namespace mqtt
     JSON
   };
 
+  enum class MQTTSensorDataSource
+  {
+    MQTT,
+    BME280
+  };
+
   static const std::string MQTTFirstKey = "firstKey";
   static const std::string MQTTSecondKey = "secondKey";
 

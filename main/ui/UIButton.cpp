@@ -2,6 +2,7 @@
 #include <config/Config.h>
 #include <sound/BeepGenerator.hpp>
 #include <ui/Color.hpp>
+#include <ui/SPIFFSIconDrawer.hpp>
 
 #include <string>
 #include <sstream>
@@ -35,7 +36,8 @@ namespace gfx
       Point imagePosition;
       imagePosition.x = mFrame.getCenterPoint().x - 50 / 2;
       imagePosition.y = 20;
-      ImageWriter::drawJpeg(mpScreen, mImagePath, imagePosition);
+      //ImageWriter::drawJpeg(mpScreen, mImagePath, imagePosition);
+      util::SPIFFSIconDrawer<ScreenDriver>::drawJpeg(mpScreen, mImagePath, imagePosition);
       mpScreen->loadFont(SmallFont);
       mpScreen->setTextColor(mTextColor, mBackgroundColor);
       Frame textFrame;

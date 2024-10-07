@@ -2,7 +2,6 @@
 
 #include <touch/ButtonDriver.h>
 #include <touch/TouchDriver.h>
-#include <ui/PROGMEMIconDrawer.hpp>
 
 //    _____  _            _______ ______ ____  _____  __  __ 
 //   |  __ \| |        /\|__   __|  ____/ __ \|  __ \|  \/  |
@@ -78,5 +77,3 @@
     ledcAttachPin(21,0);
   };
 #endif                          
-
-using ImageWriter = gfx::util::PROGMEMIconDrawer<ScreenDriver>; // gfx::util::SPIFFSIconDrawer for SPIFFS only

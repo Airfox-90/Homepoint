@@ -1,5 +1,5 @@
 #include "UISensorComboWidget.h"
-
+#include <ui/SPIFFSIconDrawer.hpp>
 #include <config/Icon.hpp>
 #include <util/stdextend.hpp>
 
@@ -52,7 +52,7 @@ namespace gfx
     auto firstImagePosition = firstFrame.position;
     firstImagePosition.x = firstFrame.position.x - util::SmallIconSize;
     firstImagePosition.y -= 4;
-    ImageWriter::drawJpeg(mpScreen, firstImage, firstImagePosition);
+    util::SPIFFSIconDrawer<ScreenDriver>::drawJpeg(mpScreen,firstImage, firstImagePosition);
     mpScreen->drawText(firstFrame, 1, firstValue);
 
     if (isMultiSensor)
@@ -64,7 +64,7 @@ namespace gfx
       auto secondImagePosition = secondFrame.position;
       secondImagePosition.x = secondFrame.position.x - util::SmallIconSize;
       secondImagePosition.y -= 4;
-      ImageWriter::drawJpeg(mpScreen, secondImage, secondImagePosition);
+      util::SPIFFSIconDrawer<ScreenDriver>::drawJpeg(mpScreen, secondImage, secondImagePosition);
       mpScreen->drawText(secondFrame, 1, secondValue);
     }
 

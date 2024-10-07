@@ -1,7 +1,8 @@
 
-file(GLOB BME280_SRC
-    "libraries/BME280/*.cpp"
+file(GLOB BME280LIB_SRC
+    "libraries/BME280/src/*.cpp"
 )
+
 file(GLOB TFTESPI_SRC
     "libraries/TFT_eSPI/*.cpp"
 )
@@ -84,7 +85,7 @@ set(GLOBALINCLUDES
 
 set(LIBRARY_SRC
     ${JPEGDEC_SRC}
-    ${BME280_SRC}
+    ${BME280LIB_SRC}
 )
 
 set(PLATFORM_SRC

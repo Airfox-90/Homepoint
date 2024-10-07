@@ -42,6 +42,7 @@ namespace mqtt
       void switchScene(const uint16_t id, bool on);
       void switchDevice(const uint16_t groupid, const uint16_t deviceid, bool on);
       void eventCallback(esp_mqtt_event_handle_t event);
+      void updateScenesFromSensor(std::string sensorData);
       MQTTConnectionStatus getLastState();
 
       void registerConnectionStatusCallback(MQTTConnectionCB cb);

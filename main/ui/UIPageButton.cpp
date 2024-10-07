@@ -1,5 +1,5 @@
 #include <ui/UIPageButton.h>
-
+#include <ui/SPIFFSIconDrawer.hpp>
 #include <config/Icon.hpp>
 #include <sound/BeepGenerator.hpp>
 
@@ -57,9 +57,9 @@ namespace gfx
     Point imagePosition;
     imagePosition.x = mFrame.getCenterPoint().x - 50 + 25/2;
     imagePosition.y = mFrame.getCenterPoint().y - 25 / 2;
-    ImageWriter::drawJpeg(mpScreen, util::GetIconFilePath(mLeftImage), imagePosition);
+    util::SPIFFSIconDrawer<ScreenDriver>::drawJpeg(mpScreen, util::GetIconFilePath(mLeftImage), imagePosition);
     imagePosition.x = mFrame.getCenterPoint().x + 25/2;
-    ImageWriter::drawJpeg(mpScreen, util::GetIconFilePath(mRightImage), imagePosition);
+    util::SPIFFSIconDrawer<ScreenDriver>::drawJpeg(mpScreen, util::GetIconFilePath(mRightImage), imagePosition);
     mpScreen->pushSprite(mFrame.position);
     mpScreen->deleteSprite();
     mNeedsRedraw = false;

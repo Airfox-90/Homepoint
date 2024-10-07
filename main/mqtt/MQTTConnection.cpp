@@ -106,7 +106,10 @@ namespace mqtt
         {
           for (auto device : ptr->mSensorDevices)
           {
-            esp_mqtt_client_subscribe(client, device.second.getTopic.c_str(), 0);
+            if (device.second.dataSource == MQTTSensorDataSource::MQTT)
+            {
+              esp_mqtt_client_subscribe(client, device.second.getTopic.c_str(), 0);
+            }
           }
         },
         [&](auto& i) {}), scene);
@@ -176,6 +179,18 @@ namespace mqtt
         mqtt::MQTTStateUpdater()(ptr, event);
       }),
       scene);
+    }
+  }
+
+  void MQTTConnection::updateScenesFromSensor(std::string sensorData)
+  {
+    for (auto& scene : mMQTTScenes)
+    {
+      std::visit(::util::overloaded(
+        [sensorData](auto&&  ptr)
+        {
+          mqtt::MQTTStateUpdater()(ptr, sensorData);
+        }), scene);
     }
   }
 

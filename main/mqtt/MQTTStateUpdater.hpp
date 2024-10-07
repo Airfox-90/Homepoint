@@ -8,7 +8,6 @@
 extern "C"
 {
   #include "mqtt_client.h"
-  #include "esp_log.h"
 }
 
 namespace mqtt
@@ -72,7 +71,29 @@ namespace mqtt
       }
     }
 
+    void operator()(MQTTSensorGroupPtr switchGroup, std::string jsonData)
+    {
+      for (auto& device : switchGroup->mSensorDevices)
+      {
+        if (device.second.dataSource == MQTTSensorDataSource::BME280)
+        {
+          device.second.setValue(jsonData);
+          if (switchGroup->mSetNeedsUpdateCB)
+          {
+            switchGroup->mSetNeedsUpdateCB();
+          }
+        }
+      }
+    }
+
     void operator()(auto i, esp_mqtt_event_handle_t evt)
+    {
+      // NO OP
+      // IF YOU RUN INTO THIS,
+      // ADD A HANDLER FOR A NEW SCENE TYPE
+    };
+
+    void operator()(auto i, std::string jsonData)
     {
       // NO OP
       // IF YOU RUN INTO THIS,

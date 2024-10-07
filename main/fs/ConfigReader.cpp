@@ -192,10 +192,19 @@ namespace fs
       sensorDevice.sensorType = sensorType;
 
       sensorDevice.dataType = MQTTSensorDataType::Raw;
-
+      sensorDevice.dataSource = MQTTSensorDataSource::MQTT;
+      
       read(device, "jsondata", [&sensorDevice](std::optional<bool> val) {
         if (!val.has_value()) { return; }
         sensorDevice.dataType = *val ? MQTTSensorDataType::JSON : MQTTSensorDataType::Raw;
+      });
+
+      read(device, "useBme280Data", [&sensorDevice](std::optional<bool> val) {
+        if (!val.has_value()) { return; }
+        if (*val) {
+          sensorDevice.dataType = MQTTSensorDataType::JSON;
+          sensorDevice.dataSource = MQTTSensorDataSource::BME280;
+        }
       });
 
       if (sensorDevice.dataType == MQTTSensorDataType::JSON)

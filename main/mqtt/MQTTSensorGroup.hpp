@@ -57,6 +57,7 @@ namespace mqtt
     int deviceId = 0;
     MQTTSensorType sensorType;
     MQTTSensorDataType dataType;
+    MQTTSensorDataSource dataSource;
     std::string firstIconName;
     std::optional<std::string> secondIconName;
   };
