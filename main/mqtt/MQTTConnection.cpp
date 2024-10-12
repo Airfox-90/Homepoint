@@ -187,10 +187,26 @@ namespace mqtt
     for (auto& scene : mMQTTScenes)
     {
       std::visit(::util::overloaded(
-        [sensorData](auto&&  ptr)
+        [&, sensorData](auto&&  ptr)
         {
-          mqtt::MQTTStateUpdater()(ptr, sensorData);
+          mqtt::MQTTStateUpdater()(ptr, sensorData, this);
         }), scene);
+    }
+  }
+
+  void MQTTConnection::publishForDevice(MQTTSensorDevice * pDevice, std::string jsonData)
+  {
+    if (mLastState == MQTTConnectionStatus::CONNECTED)
+    {
+      if (pDevice->dataSource == MQTTSensorDataSource::BME280)
+      {
+        if (pDevice->publishSensorValues && pDevice->lastJsonData != jsonData)
+        {
+            ESP_LOGI("MQTTStateUpdater", "Publishing on topic=%s, value=%s", pDevice->setTopic.c_str(), jsonData.c_str());
+            esp_mqtt_client_publish(client, pDevice->setTopic.c_str(), jsonData.c_str(), 0, 0, 0);
+            pDevice->lastJsonData =  jsonData;
+        }
+      }
     }
   }
 
@@ -203,4 +219,5 @@ namespace mqtt
   {
     return mLastState;
   }
+
 } // namespace mqtt

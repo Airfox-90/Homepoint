@@ -207,6 +207,11 @@ namespace fs
         }
       });
 
+      read(device, "publishSensorValues", [&sensorDevice](std::optional<bool> val) {
+        if (!val.has_value()) { return; }
+        sensorDevice.publishSensorValues = *val;
+      });
+
       if (sensorDevice.dataType == MQTTSensorDataType::JSON)
       {
         std::vector<ValueTuple> vals;
@@ -235,8 +240,11 @@ namespace fs
       }
       read(device, "name", [&](std::string name) { sensorDevice.name = name; });
       read(device, "getTopic", [&](std::string topic) { sensorDevice.getTopic = topic; });
+      read(device, "setTopic", [&](std::string topic) { sensorDevice.setTopic = topic; });
       read(device, "firstIcon", [&](std::string icon) { sensorDevice.firstIconName = icon; });
       read(device, "secondIcon", [&](std::optional<std::string> icon) { sensorDevice.secondIconName = icon; });
+      read(device, "firstUnit", [&](std::string unit) { sensorDevice.firstUnit = unit; });
+      read(device, "secondUnit", [&](std::string unit) { sensorDevice.secondUnit = unit; });
       return sensorDevice;
     };
 

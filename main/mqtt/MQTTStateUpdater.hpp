@@ -71,7 +71,7 @@ namespace mqtt
       }
     }
 
-    void operator()(MQTTSensorGroupPtr switchGroup, std::string jsonData)
+    void operator()(MQTTSensorGroupPtr switchGroup, std::string jsonData, MQTTConnection * pConnection)
     {
       for (auto& device : switchGroup->mSensorDevices)
       {
@@ -81,6 +81,10 @@ namespace mqtt
           if (switchGroup->mSetNeedsUpdateCB)
           {
             switchGroup->mSetNeedsUpdateCB();
+          }
+          if (device.second.publishSensorValues)
+          {
+            pConnection->publishForDevice(& device.second, jsonData);
           }
         }
       }
@@ -93,7 +97,7 @@ namespace mqtt
       // ADD A HANDLER FOR A NEW SCENE TYPE
     };
 
-    void operator()(auto i, std::string jsonData)
+    void operator()(auto i, std::string jsonData, MQTTConnection * pConnection)
     {
       // NO OP
       // IF YOU RUN INTO THIS,

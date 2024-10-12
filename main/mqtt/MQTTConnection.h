@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MQTTGroup.hpp"
+#include "MQTTSensorGroup.hpp"
 #include <util/dispatcher.hpp>
 
 #include <functional>
@@ -43,6 +44,7 @@ namespace mqtt
       void switchDevice(const uint16_t groupid, const uint16_t deviceid, bool on);
       void eventCallback(esp_mqtt_event_handle_t event);
       void updateScenesFromSensor(std::string sensorData);
+      void publishForDevice(MQTTSensorDevice * pDevice, std::string jsonData);
       MQTTConnectionStatus getLastState();
 
       void registerConnectionStatusCallback(MQTTConnectionCB cb);

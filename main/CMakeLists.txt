@@ -26,6 +26,7 @@ set(MQTT_SRC_PATH "mqtt")
 file(GLOB MQTT_SRC
   "${MQTT_SRC_PATH}/MQTTConnection.cpp"
 )
+
 set(BME280_SRC_PATH "bme280")
 file(GLOB BME280_SRC
   "${BME280_SRC_PATH}/BME280Connection.cpp"

@@ -13,6 +13,7 @@ namespace mqtt
   {
     std::string name;
     std::string getTopic;
+    std::string setTopic;
 
     std::string value;
     std::vector<ValueTuple> mappedValues;
@@ -21,9 +22,19 @@ namespace mqtt
     {
       if (dataType == MQTTSensorDataType::JSON)
       {
-        return util::FindValue(mappedValues, MQTTFirstKey);
+        if (firstUnit.size() > 0)
+        {
+          return util::FindValue(mappedValues, MQTTFirstKey) + firstUnit;
+        } else {
+          return util::FindValue(mappedValues, MQTTFirstKey);
+        }
       }
-      return value;
+      if (firstUnit.size() > 0)
+      {
+        return value  + firstUnit;
+      } else {
+        return value;
+      }
     }
 
     std::string getSecondValue()
@@ -58,8 +69,12 @@ namespace mqtt
     MQTTSensorType sensorType;
     MQTTSensorDataType dataType;
     MQTTSensorDataSource dataSource;
+    bool publishSensorValues = false;
     std::string firstIconName;
     std::optional<std::string> secondIconName;
+    std::string firstUnit = "";
+    std::string secondUnit = "";
+    std::string lastJsonData = "";
   };
 
   struct MQTTSensorGroup : public MQTTGroup
