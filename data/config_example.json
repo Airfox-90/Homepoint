@@ -149,6 +149,38 @@
                   "offValue": "false"
               }
           ]
+      },
+      {
+          "name": "Central Cabin",
+          "type": "Sensor",
+          "icon": "door",
+          "devices": [
+              {
+                  "name": "Central Cabin DHT",
+                  "type": "combinedValues",
+                  "firstIcon": "temperature_small",
+                  "secondIcon": "humidity_small",
+                  "useBme280Data": true,
+                  "publishSensorValues": true,
+                  "firstKey": "temperature",
+                  "secondKey": "humidity",
+                  "setTopic": "nami/central cabin/thp sensor"
+              }
+          ]
+      },
+      {
+          "name": "Luftdruck",
+          "type": "Sensor",
+          "icon": "door",
+          "devices": [
+              {
+                  "name": "Luftdruck DHT",
+                  "type": "singleValue",
+                  "firstIcon": "temperature_small",
+                  "useBme280Data": true,
+                  "firstKey": "pressure"
+              }
+          ]
       }
   ]
 }
